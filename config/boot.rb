@@ -1,6 +1,14 @@
+require 'combine_pdf'
 require 'erb'
+require 'prawn'
+require 'pry'
 require 'singleton'
 require 'yaml'
+
+require 'active_support/concern'
+require 'active_support/core_ext/array/access.rb'
+require 'active_support/core_ext/class/attribute'
+require 'active_support/core_ext/string/access'
 
 class App
   include Singleton
@@ -28,6 +36,10 @@ class App
     ].then { |li| li.sample(rand(li.length + 1)) }.join(" ")
   end
 
+  def self.monsters_inc
+    Osha::Location.new(name: "Monsters, Inc.", city: "Monstropolis", state: "New York")
+  end
+
   def self.osha_incidents
     instance.osha_incidents
   end
@@ -44,4 +56,10 @@ end
 
 Dir.glob(File.join(App.root, 'models/**/*.rb')).each do |model_file|
   require model_file
+end
+
+Dir.glob(File.join(App.root, 'pdfs/**/*.rb')).
+    sort_by { |file| file.include?("layout.rb") ? 0 : 1 }.
+    each do |file|
+  require file
 end

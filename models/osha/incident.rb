@@ -6,8 +6,8 @@ module Osha
                   :days_away_from_work,
                   :days_on_transfer_or_restriction,
                   :description_of_injury_or_illness,
-                  :employee_job_title,
                   :employee_name,
+                  :employee_title,
                   :injury_type_or_illness,
                   :where_the_event_occurred
 
