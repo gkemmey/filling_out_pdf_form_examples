@@ -1,0 +1,17 @@
+<% 15.times do |i| %>
+<% ["death", "days_away_from_work", "job_transfer_or_restriction", "other_recordable_case"].sample.tap do |classification| %>
+
+incident_<%= i %>:
+  case_number: '<%= i %>'
+  classification: '<%= classification %>'
+  date_of_incident: '<%= App.rand_date %>'
+  days_away_from_work: <%= classification == "days_away_from_work" ? rand(180) + 1 : nil %>
+  days_on_transfer_or_restriction: <%= classification == "job_transfer_or_restriction" ? rand(180) + 1 : nil %>
+  description_of_injury_or_illness: '<%= App.lorem_ipsum %>'
+  employee_name: '<%= App.lorem_ipsum.split(/\W/).sample(1).join(" ") %>'
+  employee_title: '<%= App.lorem_ipsum.split(/\W/).sample(2).join(" ") %>'
+  injury_type_or_illness: '<%= ["injury", "skin_disorder", "respiratory_condition", "poisoning", "hearing_loss", "all_other_illness"].sample %>'
+  where_the_event_occurred: '<%= App.lorem_ipsum %>'
+
+<% end %>
+<% end %>

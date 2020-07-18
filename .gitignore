@@ -44,4 +44,5 @@ out.diff
 dump.rdb
 
 # generated pdfs
-/out
+/out/*
+!/out/.keep
