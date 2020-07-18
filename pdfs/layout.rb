@@ -43,14 +43,17 @@ module PDF
     end
 
     class_methods do
-      def default_cell_height(value);    self.defaults[:height]    = value; end
-      def default_cell_valign(value);    self.defaults[:valign]    = value; end
-      def default_cell_overflow(value);  self.defaults[:overflow]  = value; end
-      def default_cell_font_size(value); self.defaults[:font_size] = value; end
+      def default_cell_height(value);        self.defaults[:height]        = value; end
+      def default_cell_valign(value);        self.defaults[:valign]        = value; end
+      def default_cell_overflow(value);      self.defaults[:overflow]      = value; end
+      def default_cell_min_font_size(value); self.defaults[:min_font_size] = value; end
+      def default_cell_font_size(value)
+        self.defaults[:font_size] = (value == :height ? ->(options) { options[:height] } : value)
+      end
 
       def cell_type(type, type_defaults = {})
         define_method "defaults_for_#{type}" do
-          type_defaults.dup
+          type_defaults
         end
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
@@ -76,6 +79,20 @@ module PDF
       true
     end
 
+    def with_color(options = {})
+      original_fill_color   = pdf.fill_color
+      original_stroke_color = pdf.stroke_color
+
+      pdf.fill_color   = options[:fill].  sub(/^#/, '') if options[:fill]
+      pdf.stroke_color = options[:stroke].sub(/^#/, '') if options[:stroke]
+
+      yield
+
+    ensure
+      pdf.fill_color   = original_fill_color
+      pdf.stroke_color = original_stroke_color
+    end
+
     def fill_in(value, options = {})
       _options = options.transform_values { |v| v.respond_to?(:call) ? v.call(options) : v }
 
@@ -83,8 +100,9 @@ module PDF
       _options[:size] = _options.delete(:font_size)
 
       if outline_text_boxes?
-        pdf.stroke_color "4299e1" # #4299e1
-        pdf.stroke_rectangle(_options[:at], _options[:width], _options[:height])
+        with_color(stroke: "#4299e1") do
+          pdf.stroke_rectangle(_options[:at], _options[:width], _options[:height])
+        end
       end
 
       pdf.text_box(value.to_s, _options)

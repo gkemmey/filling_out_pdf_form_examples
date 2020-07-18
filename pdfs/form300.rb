@@ -8,9 +8,10 @@ module PDF
     INCIDENT_ROWS_PER_SHEET = 13
 
     default_cell_height 14
-    default_cell_font_size ->(options) { options[:height] }
+    default_cell_font_size :height
     default_cell_valign :bottom
     default_cell_overflow :shrink_to_fit
+    default_cell_min_font_size 0
 
     cell_type :field,      font_size: 7
     cell_type :page_total, y: Y_OF_TOP_LEFT_CORNER_FOR_PAGE_TOTAL_CELLS, width: 15,
@@ -77,7 +78,7 @@ module PDF
     attr_accessor :incidents, :year, :location
 
     def initialize(incidents, attributes = {})
-      @incidents = incidents
+      @incidents = incidents.to_a
       attributes.each { |name, value| send("#{name}=", value) }
     end
 

@@ -24,7 +24,7 @@ $ open out/osha_form_300.pdf
 
 ### Credits
 
-- [u/hcollider](https://www.reddit.com/r/rails/comments/8ohntl/generating_pdf_form_with_prawn/e03k552/) is a gentleman and a scholar 🎩
-- [`prawn`](https://github.com/prawnpdf/prawn) is amazing software 🎉
-- [`combine_pdf`](https://github.com/boazsegev/combine_pd) is amazing software 🎊
-- Any [OSHA Forms](https://www.osha.gov/recordkeeping/new-osha300form1-1-04-FormsOnly.pdf) are obviously [theirs](https://www.osha.gov/).
+- [u/hcollider](https://www.reddit.com/r/rails/comments/8ohntl/generating_pdf_form_with_prawn/e03k552/)
+- [`prawn`](https://github.com/prawnpdf/prawn)
+- [`combine_pdf`](https://github.com/boazsegev/combine_pd)
+- Any [OSHA Forms](https://www.osha.gov/recordkeeping/new-osha300form1-1-04-FormsOnly.pdf) are obviously [theirs](https://www.osha.gov/)
