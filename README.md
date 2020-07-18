@@ -1,4 +1,4 @@
-Examples of filling out PDF forms using [`prawn`](https://github.com/prawnpdf/prawn) and [`combine_pdf`](https://github.com/boazsegev/combine_pd). I wrote more about the approach here: _[TODO]()_.
+Examples of filling out PDF forms using [`prawn`](https://github.com/prawnpdf/prawn) and [`combine_pdf`](https://github.com/boazsegev/combine_pd). I wrote more about the approach here: http://blog.graykemmey.com/2020/07/18/a-great-way-to-generate-pdfs-with-some-questionable-ruby/.
 
 ### Setup
 
